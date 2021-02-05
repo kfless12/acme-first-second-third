@@ -1,15 +1,35 @@
+body{
+  background-color: rgba(243, 226, 226, 0.589);
+}
 #names, #number{
     width: 220px;
-
-
+}
+#lists input{
+    background-color: rgb(221, 241, 57);
+    font-size: large;
+    height: 25px;
+    width: 175px;
+    font-weight: bold;
+}
+#lists input:hover{
+    background-color: rgb(167, 184, 44);
+}
+#lists input:active{
+    background-color: rgb(83, 83, 15);
 }
 #lists{
+    background-color:rgba(128, 128, 128, 0.445);
     display: flex;
     justify-content: space-evenly;
-    border: 5px solid black;
+    border: 5px solid grey;
+}
+#first, #second, #third{
+    padding-left: 10px;
+    padding-right: 10px;
 }
 ul{
-    border: 5px solid rgb(172, 39, 21);
+  background-color: rgba(218, 165, 32, 0.288);
+    border: 5px solid goldenrod;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +42,7 @@ input{
     width: 140px;
     height: 20px;
     margin: 1px;
-    margin: 1px;
+    outline:none;
 }
 li{
     display: flex;
@@ -30,19 +50,95 @@ li{
     width: 95%;
     padding-top: 2%;
     padding-bottom: 2%;
+    margin-top: 1.5px;
+    margin-bottom: 1.5px;
+    font-family: 'Lobster', cursive;
+    font-weight: lighter;
 }
 h2{
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'Domine', serif;
+}
+h5{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: lighter;
+  font-size: large;
+  font-family: 'Lobster', cursive;
+}
+
+h1{
+ font-family: 'Domine', serif;
 }
 .highlight{
-    background-color: rgba(0, 255, 136, 0.281);
-    width: max;
+    background-color: rgba(17, 238, 9, 0.651);
+    animation: pulse 2s infinite;
 }
-.run-animation{
+.run-animation1{
     animation: shake 0.25s 1;
 }
+.run-animation2{
+    animation-name: pop-out;
+    animation-duration: .5s;
+}
+.run-animation3{
+    animation-name: pop-out;
+    animation-direction: reverse;
+    animation-duration: .5s;
+}
+.run-animation-4{
+    animation: tada ease-in .25s 1;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(32, 9, 238, 0.4);
+  }
+  70% {
+      box-shadow: 0 0 0 5px rgba(204,169,44, 0);
+  }
+  100% {
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+#start{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: lighter;
+  font-size: large;
+  font-family: 'Domine', serif;
+}
+#Initialize{
+  box-shadow: 3px 4px 0px 0px #7d8183;
+	background:linear-gradient(to bottom, #ffffff 5%, #09abf7 100%);
+	background-color:#ffffff;
+	border-radius:15px;
+	border:1px solid #706f6f;
+	display:inline-block;
+	cursor:pointer;
+	color:#0b181b;
+	font-family: 'Domine', serif;
+  font-size: larger;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #fcfcfc;
+  border-radius: 75%;
+  width: 125px;
+  height: 125px;
+  outline:none;
+}
+#Initialize:hover {
+	background:linear-gradient(to bottom, #09abf7 5%, #ededed 100%);
+	background-color:#bab1ba;
+}
+#Initialize:active {
+	position:relative;
+  box-shadow: .5px 1px 0px 0px #7d8183;
+	top:1px;
+}
+
   
   @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
@@ -57,6 +153,43 @@ h2{
     90% { transform: translate(1px, 0px) rotate(0deg); }
     100% { transform: translate(1px, 0px) rotate(-1deg); }
   }
-  #start{
-      display: 
+  @keyframes pop-out {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.1); }
+    }
+
+
+
+    /* animation obtained from https://github.com/animate-css */
+@keyframes tada {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
+
+  10%,
+  20% {
+    -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}

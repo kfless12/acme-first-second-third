@@ -18,12 +18,13 @@ function initialize(){
 
 function create_lists(numbers, names){
     if(numbers === "" && names === ""){
-        numbers = Math.floor(Math.random()*18)
+        numbers = Math.floor((Math.random()*15)+3)
         names = []
         for(let i = 0; i < numbers; i++){
             names.push(namelist[Math.floor(Math.random()*2738)])            
         }
     } else if(numbers > names.length){
+        names = []
         for(let i = names.length; i < numbers; i++)
             names.push(namelist[Math.floor(Math.random()*2738)])
     } else if(names.length > numbers){
@@ -43,69 +44,65 @@ listsdiv.addEventListener('click', function(ev){
     let trigger = ev.target
     if(trigger.tagName === 'INPUT'){
         if(trigger.value === '>'){
-            moveright()
-        } else {moveleft()}
-    } else if(trigger.tagName === 'LI'){
+            move('right',trigger)
+        } else {move('left',trigger)}
+    } else if(trigger.tagName === 'LI'&& trigger.children.length === 0){
         highlight(trigger)
     }
 })
 
 function highlight(listitem){
-    if(listitemCL){
-        listitemCL.remove('highlight')
+    if(listitem.classList[0] === 'highlight'){
+        listitem.classList.remove('highlight')
+    }else{
+        listitem.classList.add('run-animation-4')
+        listitem.classList.add('highlight')
+        setTimeout(()=>{listitem.classList.remove('run-animation-4')}, 250)
     }
-    listitemCL = listitem.classList;
-    listitemCL.add('highlight')
 }
 
-function moveleft(){
-
-    let userobj = users[document.getElementsByClassName('highlight')[0].id - 1]
-    if(userobj.slot !== 'first'){
-        let movespace = slots.indexOf(userobj.slot) -1
-        document.getElementsByClassName('highlight')[0].remove()
-        userobj.slot = slots[movespace]
-        let li = document.createElement('li')
-        li.innerHTML = userobj.name
-        li.id = userobj.id
-        li.classList.add('highlight')
-        listitemCL = li.classList
-        locations[movespace].appendChild(li)
-
-
-
-    } else{
-        shake()
-    }
-    
+function shake(i){
+    i.classList.add('run-animation1')
+    setTimeout(()=>{i.classList.remove('run-animation1')}, 100)
 
 }
-
-function moveright(){
-
-    let userobj = users[document.getElementsByClassName('highlight')[0].id - 1]
-    if(userobj.slot !== 'third'){
-        let movespace = slots.indexOf(userobj.slot) +1
-        document.getElementsByClassName('highlight')[0].remove()
-        userobj.slot = slots[movespace]
-        let li = document.createElement('li')
-        li.innerHTML = userobj.name
-        li.id = userobj.id
-        li.classList.add('highlight')
-        listitemCL = li.classList
-        locations[movespace].appendChild(li)
-
-
-
-    } else{
-        shake()
-    }
-    
-
+function popout(i){
+    i.classList.add('run-animation2')
+    setTimeout(()=>{i.remove()}, 450)
 }
 
-function shake(){
-    listitemCL.add('run-animation')
-    setTimeout(()=>{listitemCL.remove('run-animation')}, 100)
+function popin(userobj, clone, move){
+    userobj.slot = slots[slots.indexOf(userobj.slot) +move]
+    let check = locations[slots.indexOf(userobj.slot)].appendChild(clone)
+    check.classList.add('run-animation3')
+    setTimeout(()=>{check.classList.remove('run-animation3')}, 450)
+}
 
+function move(direction, trigger){
+    let list = [...trigger.parentElement.parentElement.querySelectorAll('.highlight')]
+    list.forEach((i) => {
+        let userobj = users[i.id -1]
+        if(direction === 'right'){
+            if(userobj.slot !== 'third'){
+                let clone = i.cloneNode(true)
+                popout(i)
+                popin(userobj, clone, 1)
+                //userobj.slot = slots[slots.indexOf(userobj.slot) +1]
+                //locations[slots.indexOf(userobj.slot)].appendChild(clone)
+            } else{
+                shake(i)
+            }
+        } else{
+            if(userobj.slot !== 'first'){
+                let clone = i.cloneNode(true)
+                popout(i)
+                popin(userobj, clone, -1)
+                //userobj.slot = slots[slots.indexOf(userobj.slot) -1]
+                //locations[slots.indexOf(userobj.slot)].appendChild(clone)
+
+            }else{
+                shake(i)
+            }
+        }
+    })
 }
